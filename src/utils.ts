@@ -1,6 +1,6 @@
 
-export const baseColours = ["transparent", "red", "green", "blue"]
-
+export const baseColours = ["transparent", "#ED5565", "#FFCE54" , "#A0D468", "#4FC1E9", "#AC92EC", "#EC87C0", "#656D78"]
+// "#FC6E51" Orange
 const randomColourNo = () => Math.ceil(Math.random() * (baseColours.length-1))
 
 export const generateColourCode = () => [randomColourNo(), randomColourNo(), randomColourNo(), randomColourNo()]

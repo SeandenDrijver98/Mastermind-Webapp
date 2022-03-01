@@ -18,7 +18,7 @@ const HelperText = styled.span<{position: 'left' | 'right'}>`
   top: -0.5rem;
   ${props => props.position === 'left' ? 'left: -3.5rem' : 'right: -3rem' }
 `
-const maxRows = 7
+const maxRows = 10
 const colourCode =  generateColourCode()
 
 export const Board = () => {
