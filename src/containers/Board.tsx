@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { Row } from './Row'
 import { SubmitButton } from '../components/SubmitButton'
-import {generateColourCode, baseColours} from '../utils'
+import {generateColourCode, baseColours, matchCodes} from '../utils'
 
 const StyledBoard = styled.div`
   position: relative;
@@ -21,30 +21,16 @@ const HelperText = styled.span<{position: 'left' | 'right'}>`
 const maxRows = 7
 const colourCode =  generateColourCode()
 
-console.log('first', colourCode.map(code => baseColours[code]))
-console.log('colourCode', colourCode)
-
 export const Board = () => {
   const [currentRow, {dec, reset}] = useCounter(maxRows-1)
   const rowRefs = useRef<[] | HTMLElement[]>([])
   const [selectedColours, updateSelectedColours] = useState<number[]>([0,0,0,0])
 
   const checkColours = (selectedColours: number[], callback: (correct:number,incorrect:number) => void) => {
-    let correctPosition = 0
-    let incorrectPosition = 0
-    console.log('selectedColours', selectedColours)
+    // Use Spread operator to deep clone the array as splice operations will mutate this array
+    const {correct, incorrect} = matchCodes([...colourCode], selectedColours)
 
-    selectedColours.forEach((colour,i) => {
-      if(colour === colourCode[i]){
-        correctPosition += 1
-      }
-      else if(colourCode.indexOf(colour) !== -1){
-        incorrectPosition +=1
-      }
-    })
-
-   
-    callback(correctPosition, incorrectPosition)
+    callback(correct, incorrect)
   } 
 
   const handleSubmit = () => {
