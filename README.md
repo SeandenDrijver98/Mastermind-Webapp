@@ -5,7 +5,7 @@ Mastermind is a code-breaking game originally played by two people, the *codemak
 This Webapp acts as the codemaker by pseudo-randomly selecting a set of four colours. 
 Your job as the codebreaker is to guess the combination of colours in the correct position within 10 attempts.
 
-Ready for the challenge give it a go: https://mastermind.netlify.app
+Ready for the challenge give it a go: https://mastermind-web.netlify.app/
 
 ## How to play?
 
@@ -32,8 +32,8 @@ Jest Unit Tests are used to ensure the Grading logic works correctly.
 Hosted using **Netlify**! An all-in-one platform for automating modern web projects.
 
 ## Useful links
-[Typescript](
+- [Typescript](
 https://www.typescriptlang.org/docs/)
-[React](https://reactjs.org/) & [React Beta](https://beta.reactjs.org/) 
-[Jest testing](https://jestjs.io/)
-[Netlify](https://docs.netlify.com)
+- [React](https://reactjs.org/) & [React Beta](https://beta.reactjs.org/) 
+- [Jest testing](https://jestjs.io/)
+- [Netlify](https://docs.netlify.com)
