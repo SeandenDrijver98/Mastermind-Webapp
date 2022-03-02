@@ -33,6 +33,10 @@ export const Board = () => {
     callback(correct, incorrect)
   } 
 
+  const endgame = () => {
+    alert("Mission successful, You cracked the code!")
+  }
+
   const handleSubmit = () => {
       dec()
       checkColours(selectedColours, (correct, incorrect) => {
@@ -40,12 +44,17 @@ export const Board = () => {
           rowRefs.current[currentRow].childNodes[0].textContent = incorrect.toString()
           rowRefs.current[currentRow].childNodes[5].textContent = correct.toString()
         }
+
+        if(correct === 4){
+          endgame()
+        }
       })
     }
 
   if(currentRow === -1){
-    alert("Game over!")
+    alert(`Game over! \n The correct code was: ${colourCode.map(code => Object.keys(baseColours)[code]).join(', ')} `)
     reset()
+    // force react rerender or window refresh
   }
 
   return (

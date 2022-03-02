@@ -17,7 +17,7 @@ const StyledTile = styled('div')<{
   played: boolean
 }>`
 && {
-background-color: ${props => props.played? baseColours[props.colour] : '#333'};
+background-color: ${props => props.played? Object.values(baseColours)[props.colour] : '#333'};
 width: 4rem;
 height: 4rem;
 margin: 0.2rem;
@@ -33,7 +33,7 @@ export const Tile: FC<Props> = (props) => {
     onChange(colourNo)
   }, [colourNo, onChange])
   
-  if(colourNo === baseColours.length){
+  if(colourNo === Object.values(baseColours).length){
     reset()
   }
 

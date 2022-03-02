@@ -1,7 +1,15 @@
 
-export const baseColours = ["transparent", "#ED5565", "#FFCE54" , "#A0D468", "#4FC1E9", "#AC92EC", "#EC87C0", "#656D78"]
-// "#FC6E51" Orange
-const randomColourNo = () => Math.ceil(Math.random() * (baseColours.length-1))
+export const baseColours = {
+    "none": "transparent", 
+    "grapefruit":"#ED5565", 
+    "Sunflower":"#FFCE54" ,
+    "Grass":"#A0D468",
+    "Aqua":"#4FC1E9", 
+    "Lavender":"#AC92EC", 
+    "Pink Rose":"#EC87C0",
+    "Charcoal":"#656D78"}
+    
+const randomColourNo = () => Math.ceil(Math.random() * (Object.values(baseColours).length-1))
 
 export const generateColourCode = () => [randomColourNo(), randomColourNo(), randomColourNo(), randomColourNo()]
 
