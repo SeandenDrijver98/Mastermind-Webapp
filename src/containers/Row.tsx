@@ -5,7 +5,7 @@ import { Tile } from '../components/Tile'
 const StyledRow = styled.div`
     display: flex;
     flex-diretion: column;
-    max-width: 16rem;
+    max-width: 20rem;
     margin: 0 auto;
     position: relative;
 `
@@ -18,12 +18,11 @@ const IndicatorBox = styled.h2<{played: boolean}>`
 
     &&.correct {
         right: -3rem;
-        color: ${props => props.played ? 'green' : 'black'}
+        color: ${props => props.played ? '#6aaa64' : '#787c7e'}
     }
     &&.incorrect {
         left: -3rem;
-        color: ${props => props.played ? 'orange' : 'black'}
-
+        color: ${props => props.played ? '#c9b458' : '#787c7e'};
     }
 `
 

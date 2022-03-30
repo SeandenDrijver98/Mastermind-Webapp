@@ -1,3 +1,4 @@
+import React from "react"
 
 export const baseColours = {
     "none": "transparent", 
@@ -5,9 +6,10 @@ export const baseColours = {
     "Sunflower":"#FFCE54" ,
     "Grass":"#A0D468",
     "Aqua":"#4FC1E9", 
-    "Lavender":"#AC92EC", 
-    "Pink Rose":"#EC87C0",
-    "Charcoal":"#656D78"}
+}
+// "Lavender":"#AC92EC", 
+    // "Pink Rose":"#EC87C0",
+    // "Charcoal":"#656D78"}
     
 const randomColourNo = () => Math.ceil(Math.random() * (Object.values(baseColours).length-1))
 
@@ -40,3 +42,8 @@ export const matchCodes = (correctCode: number[], attemptCode: number[]) => {
         correct: correctCount, incorrect: incorrectCount
     }
 }
+
+/**
+ * @description Set and Access the currently active colour without prop drilling by using [React Context](https://reactjs.org/docs/context.html)
+ */
+export const ColourContext = React.createContext<number | null>(null);

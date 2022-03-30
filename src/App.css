@@ -7,10 +7,24 @@
   pointer-events: none;
 }
 
-.App-header {
-  border-bottom: 1px solid #AAA;
-  padding: 0.25em 0;
+.title {
   margin: 0 auto;
-  margin-bottom: 0.5em;
+  padding: 0.25em 0;
+  font-family: 'nyt-karnakcondensed';
+  font-weight: 700;
+  font-size: 37px;
+  line-height: 100%;
+  letter-spacing: 0.01em;
 }
 
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.side {
+  width: 4em;
+  display: flex;
+  padding: 0 1em;
+}

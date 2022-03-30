@@ -3,8 +3,9 @@ import {useCounter} from 'react-use'
 import styled from 'styled-components'
 
 import { Row } from './Row'
+import { ColourSelector } from './ColourSelector'
 import { SubmitButton } from '../components/SubmitButton'
-import {generateColourCode, baseColours, matchCodes} from '../utils'
+import {generateColourCode, baseColours, matchCodes, ColourContext} from '../utils'
 
 const StyledBoard = styled.div`
   position: relative;
@@ -18,7 +19,7 @@ const HelperText = styled.span<{position: 'left' | 'right'}>`
   top: -0.5rem;
   ${props => props.position === 'left' ? 'left: -3.5rem' : 'right: -3rem' }
 `
-const maxRows = 10
+const maxRows = 6
 const colourCode =  generateColourCode()
 
 export const Board = () => {
@@ -58,9 +59,10 @@ export const Board = () => {
   }
 
   return (
+    <ColourContext.Provider value={null}>
     <StyledBoard>
-      <HelperText position="right">Correct</HelperText>
-      <HelperText position="left">Incorrect</HelperText>
+      {/* <HelperText position="right">Correct</HelperText>
+      <HelperText position="left">Incorrect</HelperText> */}
       {[...Array(maxRows)].map((obj,i) => (
         <Row 
           ref={(el:HTMLElement) => rowRefs.current[i] = el} 
@@ -75,8 +77,10 @@ export const Board = () => {
             updateSelectedColours(updatedColours)}}
         />
       ))}
+      <ColourSelector />
       <SubmitButton onSubmit={handleSubmit}/>
     </StyledBoard>
+    </ColourContext.Provider>
   )
 }
 
