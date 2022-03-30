@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, { FC ,useContext } from 'react'
 import styled from 'styled-components'
 import { ColourControl } from '../components/ColourControl'
 import { baseColours, ColourContext } from '../utils'
@@ -10,7 +10,11 @@ const Container = styled.div`
   justify-content: center;
 `
 
-export const ColourSelector = () => {
+type Props = {
+  onSelect: (id:number) => void
+}
+
+export const ColourSelector:FC<Props> = ({onSelect}) => {
   const activeColour = useContext(ColourContext)
   return (
     <Container>
@@ -18,7 +22,7 @@ export const ColourSelector = () => {
           if(id === 0){
            return null
           }
-          return <ColourControl colorId={id} selected={id === activeColour}/>
+          return <ColourControl colorId={id} selected={id === activeColour} onClick={onSelect}/>
         })}
     </Container>
   )

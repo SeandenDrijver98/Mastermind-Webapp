@@ -25,6 +25,8 @@ const colourCode =  generateColourCode()
 export const Board = () => {
   const [currentRow, {dec, reset}] = useCounter(maxRows-1)
   const rowRefs = useRef<[] | HTMLElement[]>([])
+
+  const [activeColour, updateActiveColour] = useState<number>(0)
   const [selectedColours, updateSelectedColours] = useState<number[]>([0,0,0,0])
 
   const checkColours = (selectedColours: number[], callback: (correct:number,incorrect:number) => void) => {
@@ -51,6 +53,10 @@ export const Board = () => {
         }
       })
     }
+  
+  const handleColourSelect = (id: number) => {
+    updateActiveColour(id)
+  }
 
   if(currentRow === -1){
     alert(`Game over! \n The correct code was: ${colourCode.map(code => Object.keys(baseColours)[code]).join(', ')} `)
@@ -59,7 +65,7 @@ export const Board = () => {
   }
 
   return (
-    <ColourContext.Provider value={null}>
+    <ColourContext.Provider value={activeColour}>
     <StyledBoard>
       {/* <HelperText position="right">Correct</HelperText>
       <HelperText position="left">Incorrect</HelperText> */}
@@ -77,7 +83,7 @@ export const Board = () => {
             updateSelectedColours(updatedColours)}}
         />
       ))}
-      <ColourSelector />
+      <ColourSelector onSelect={handleColourSelect}/>
       <SubmitButton onSubmit={handleSubmit}/>
     </StyledBoard>
     </ColourContext.Provider>

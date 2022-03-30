@@ -1,8 +1,7 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 
-import {baseColours} from '../utils' 
-import {useCounter} from 'react-use'
+import {baseColours,ColourContext} from '../utils' 
 
 interface Props {
   id: number
@@ -27,21 +26,18 @@ border: 1px solid #AAA
 
 export const Tile: FC<Props> = (props) => {
   const { onChange, setColour, played, active } = props
-  const [colourNo, {inc, reset} ] = useCounter(setColour || 0)
+  const [colourNo, setColourNo ] = useState(setColour || 0)
+  const activeColour = useContext(ColourContext)
 
   useEffect(() => {
     onChange(colourNo)
   }, [colourNo, onChange])
-  
-  if(colourNo === Object.values(baseColours).length){
-    reset()
-  }
 
   return (
     <StyledTile
       colour={colourNo}
       played={played}
-      onClick={() => inc(+ active)} // Converts bool to int 1 | 0
+      onClick={() => active && activeColour && setColourNo(activeColour)} // Converts bool to int 1 | 0
     />
   )
 }
