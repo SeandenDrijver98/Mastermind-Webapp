@@ -20,7 +20,7 @@ background-color: ${props => props.played? Object.values(baseColours)[props.colo
 width: 4rem;
 height: 4rem;
 margin: 0.2rem;
-border: 1px solid #AAA
+border: 2px solid #787c7e
 }
 `
 

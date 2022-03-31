@@ -6,7 +6,7 @@ import { baseColours } from '../utils'
 const Control = styled.div<{selected: boolean, color: string}>`
     height: 3rem;
     width: 3rem;
-    border: ${props => props.selected ? 'red' : 'transparent'} 2px solid;
+    border: ${props => props.selected ? 'black' : 'transparent'} 2px solid;
     background-color: ${props => props.color};
     margin-right: 0.5em;
 

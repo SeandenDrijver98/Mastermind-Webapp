@@ -5,7 +5,7 @@ import { Tile } from '../components/Tile'
 const StyledRow = styled.div`
     display: flex;
     flex-diretion: column;
-    max-width: 20rem;
+    max-width: 16rem;
     margin: 0 auto;
     position: relative;
 `

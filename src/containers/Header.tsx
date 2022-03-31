@@ -14,18 +14,22 @@ const Icon = styled.i`
     font-size: 1.3em;
 `
 
-type Props = {}
+type Props = {
+  openStatistics: () => void
+  openSettings: () => void
+  openHelp: () => void
+}
 
-export const Header: FC<Props> = ({}) => {
+export const Header: FC<Props> = ({ openSettings, openHelp, openStatistics }) => {
   return (
       <StyledHeader>
           <div className="left side">
-            <Icon className="fa-regular fa-circle-question"/>
+            <Icon className="fa-regular fa-circle-question" onClick={openHelp}/>
           </div>
           <h1 className="title">Mastermind</h1>
           <div className="right side">
-            <Icon className="fa-solid fa-chart-column"/>
-            <Icon className="fa-solid fa-gear"/>
+            <Icon className="fa-solid fa-chart-column" onClick={openStatistics}/>
+            <Icon className="fa-solid fa-gear" onClick={openSettings}/>
           </div>
       </StyledHeader>
     )

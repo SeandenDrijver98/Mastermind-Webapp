@@ -15,7 +15,7 @@ type Props = {onSubmit: () => void}
 
 export const SubmitButton = (props: Props) => {
   return (
-    <StyledSubmitButton onClick={props.onSubmit}> SUBMIT </StyledSubmitButton>
+    <StyledSubmitButton onClick={props.onSubmit}> ENTER </StyledSubmitButton>
   )
 }
 
