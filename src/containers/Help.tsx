@@ -56,11 +56,11 @@ export const Help: FC<Props> = (props) => {
         <hr />
         <p><strong>Examples</strong></p>
         <span style={{textAlign: 'center', maxWidth: '16rem'}}> 
-          <Row ref={firstExampleRef} active={false} played={false} colours={[1,3,2,4]} onSubmit={() => null} updateColour={() => null}/> 
+          <Row ref={firstExampleRef} active={false} played={true} colours={[1,3,2,4]} onSubmit={() => null} updateColour={() => null}/> 
         </span>
         <p style={{marginTop: '0.2em'}}>One colour in the guessed code is in the correct spot.</p>
         <span style={{textAlign: 'center'}}> 
-          <Row ref={secondExampleRef} active={false} played={false} colours={[1,3,2,4]} onSubmit={() => null} updateColour={() => null}/> 
+          <Row ref={secondExampleRef} active={false} played={true} colours={[1,3,2,4]} onSubmit={() => null} updateColour={() => null}/> 
         </span>
         <p style={{marginTop: '0.2em'}}>One colour in the guessed code is in the incorrect spot.</p>
         <hr />
