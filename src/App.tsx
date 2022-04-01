@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { useCookie } from 'react-use'
+// import { useCookie } from 'react-use'
 
 import { Board } from './containers/Board';
 import { Header } from './containers/Header';
@@ -7,6 +7,7 @@ import { Help } from './containers/Help'
 import { Settings } from './containers/Settings';
 
 import './App.css';
+import Statistics from './components/Statistics';
 
 type Phases = "help" | "settings" | "board" | "statistics"
 
@@ -21,14 +22,21 @@ const App = () => {
     )
   }
   if(phase === "settings"){
-    <Settings close={() => setPhase("board")}/>
+    return (
+      <div className="App">
+        <Settings close={() => setPhase("board")}/>
+      </div>
+    )
   }
+
   return (
     <div className="App">
       <Header 
         openHelp={() => setPhase("help")} 
         openSettings={() => setPhase("settings")} 
-        openStatistics={() => setPhase("statistics")}/>
+        openStatistics={() => setPhase("statistics")}
+      />
+      {phase === "statistics" && <Statistics close={() => setPhase("board")} /> }
       <Board/>
     </div>
   );

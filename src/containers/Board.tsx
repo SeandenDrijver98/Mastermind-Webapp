@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react'
+import  { FC, useRef, useState } from 'react'
 import {useCounter} from 'react-use'
 import styled from 'styled-components'
 
@@ -31,11 +31,15 @@ export const Board: FC<Props> = () => {
 
   const [activeColour, updateActiveColour] = useState<number>(0)
   const [selectedColours, updateSelectedColours] = useState<number[]>([0,0,0,0])
-
+ 
   const checkColours = (selectedColours: number[], callback: (correct:number,incorrect:number) => void) => {
     // Use Spread operator to deep clone the array as splice operations will mutate this array
-    const {correct, incorrect} = matchCodes([...colourCode], selectedColours)
+    console.log('colourCode', colourCode)
+    console.log('selected:', selectedColours)
 
+    const {correct, incorrect} = matchCodes([...colourCode], selectedColours)
+    console.log('correct', correct)
+    console.log('incorrect', incorrect)
     callback(correct, incorrect)
   } 
 

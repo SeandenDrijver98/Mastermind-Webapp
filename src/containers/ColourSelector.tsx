@@ -22,7 +22,7 @@ export const ColourSelector:FC<Props> = ({onSelect}) => {
           if(id === 0){
            return null
           }
-          return <ColourControl colorId={id} selected={id === activeColour} onClick={onSelect}/>
+          return <ColourControl key={key} colorId={id} selected={id === activeColour} onClick={onSelect}/>
         })}
     </Container>
   )

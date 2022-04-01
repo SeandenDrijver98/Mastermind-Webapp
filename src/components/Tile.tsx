@@ -28,11 +28,12 @@ export const Tile: FC<Props> = (props) => {
   const { onChange, setColour, played, active } = props
   const [colourNo, setColourNo ] = useState(setColour || 0)
   const activeColour = useContext(ColourContext)
-
+  
   useEffect(() => {
     onChange(colourNo)
   }, [colourNo, onChange])
 
+  console.log("activeColour", activeColour)
   return (
     <StyledTile
       colour={colourNo}

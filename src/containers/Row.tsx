@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect} from 'react'
+import React, { forwardRef} from 'react'
 import styled from 'styled-components'
 import { Tile } from '../components/Tile'
 
@@ -11,7 +11,7 @@ const StyledRow = styled.div`
 `
 
 const IndicatorBox = styled.h2<{played: boolean}>`
-    border: 1px solid #AAA;
+    border: 2px solid #787c7e
     width: 2rem;
     height: 2rem;
     position: absolute;
