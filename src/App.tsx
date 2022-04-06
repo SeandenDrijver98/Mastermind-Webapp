@@ -7,7 +7,7 @@ import { Help } from './containers/Help'
 import { Settings } from './containers/Settings';
 
 import './App.css';
-import Statistics from './components/Statistics';
+import { Statistics } from './containers/Statistics';
 
 type Phases = "help" | "settings" | "board" | "statistics"
 

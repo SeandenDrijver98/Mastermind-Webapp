@@ -1,12 +1,20 @@
 import React, { FC, useEffect, useRef } from 'react'
 import styled from 'styled-components'
+import { Close } from '@mui/icons-material'
 
 import { Row } from '../containers/Row'
 
 const Page = styled.div`
     width: 30em;
     margin: 0 auto;
-    
+`
+
+const PageHeader = styled.div`
+  display: flex; 
+  width: 100%;
+  position: relative;
+  justify-content: center;
+  align-items: center;
 `
 
 const PageTitle = styled.h3`
@@ -16,12 +24,11 @@ const PageTitle = styled.h3`
     font-weight: 700;
 `
 
-const Icon = styled.i`
+const CloseIcon = styled(Close)`
     margin: auto 0;
     font-size: 1.5em;
     position: absolute;
     right: 0;
-    bottom: 30%;
 `
 
 type Props = {
@@ -46,10 +53,10 @@ export const Help: FC<Props> = (props) => {
 
   return (
     <Page>
-        <div style={{display: 'flex', width: '100%', position: 'relative', justifyContent: 'center' }}>
+        <PageHeader>
             <PageTitle>HOW TO PLAY</PageTitle>
-            <Icon className="fa-thin fa-xmark" onClick={close}/>
-        </div>
+            <CloseIcon onClick={close}/>
+        </PageHeader>
         <p>Guess the <b>COLOUR CODE</b> in six tries.</p>
         <p>Each guess must constist of 4 colours. Hit the enter button to submit.</p>
         <p>After each guess, the correct postion and incorrect position indicators will change to show how close your guess was to the code.</p>

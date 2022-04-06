@@ -1,5 +1,6 @@
-import React, {FC} from 'react'
+import React, { FC } from 'react'
 import styled from 'styled-components'
+import { Close } from '@mui/icons-material'
 
 const Page = styled.div`
     width: 30em;
@@ -13,12 +14,19 @@ const PageTitle = styled.h3`
     font-weight: 700;
 `
 
-const Icon = styled.i`
+const PageHeader = styled.div`
+  display: flex; 
+  width: 100%;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+`
+
+const CloseIcon = styled(Close)`
     margin: auto 0;
     font-size: 1.5em;
     position: absolute;
     right: 0;
-    bottom: 30%;
 `
 const Section = styled.div`
   display: flex;
@@ -36,10 +44,10 @@ export const Settings:FC<Props> = (props) => {
 
   return (
     <Page>
-        <div style={{display: 'flex', width: '100%', position: 'relative', justifyContent: 'center' }}>
-            <PageTitle>SETTINGS</PageTitle>
-            <Icon className="fa-thin fa-xmark" onClick={close}/>
-        </div>
+      <PageHeader>
+          <PageTitle>SETTINGS</PageTitle>
+          <CloseIcon onClick={close}/>
+        </PageHeader>
         <Section>
           <div>
             <strong>HARD MODE</strong> 
