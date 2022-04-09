@@ -74,7 +74,7 @@ export const data = {
     {
       label: 'Guesses',
       data: labels.map(() => 2),
-      backgroundColor: theme.grey,
+      backgroundColor: theme.darkGrey,
       categoryPercentage: 1.3,
       barPercentage: 0.5,
     },

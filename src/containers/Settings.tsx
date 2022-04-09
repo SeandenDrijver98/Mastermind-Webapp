@@ -1,5 +1,6 @@
-import React, { FC } from 'react'
+import React, { ChangeEvent, FC } from 'react'
 import styled from 'styled-components'
+import Switch from '@mui/material/Switch'
 import { Close } from '@mui/icons-material'
 
 const Page = styled.div`
@@ -37,10 +38,14 @@ const Section = styled.div`
 `
 type Props = {
   close: () => void
+  darkThemeEnabled: boolean
+  numberCodeEnabled: boolean
+  toggleNumberCode: (event:ChangeEvent<HTMLInputElement>, checked: boolean) => void
+  toggleDarkTheme: (event:ChangeEvent<HTMLInputElement>, checked: boolean) => void
 }
 
 export const Settings:FC<Props> = (props) => {
-  const { close } = props
+  const { close, numberCodeEnabled, darkThemeEnabled, toggleNumberCode, toggleDarkTheme } = props
 
   return (
     <Page>
@@ -59,14 +64,14 @@ export const Settings:FC<Props> = (props) => {
           <div>
             <strong>DARK THEME</strong> 
           </div>
-          <input type="checkbox"/>
+          <Switch checked={darkThemeEnabled} value={darkThemeEnabled} onChange={toggleDarkTheme}/>
         </Section>          
         <Section>
           <div>
             <strong>NUMBER CODE</strong> 
             <p>Guess the code using numbers instead of colours</p>
           </div>
-          <input type="checkbox"/>
+          <Switch checked={numberCodeEnabled} value={numberCodeEnabled} onChange={toggleNumberCode}/>
         </Section>          
         <Section>
           <div>

@@ -1,10 +1,11 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
+import { useToggle } from 'react-use'
 // import { useCookie } from 'react-use'
-
 import { Board } from './containers/Board';
 import { Header } from './containers/Header';
 import { Help } from './containers/Help'
 import { Settings } from './containers/Settings';
+import {CodeContext, ThemeContext} from './utils'
 
 import './App.css';
 import { Statistics } from './containers/Statistics';
@@ -13,6 +14,8 @@ type Phases = "help" | "settings" | "board" | "statistics"
 
 const App = () => {
   const [phase, setPhase] = useState<Phases>("board")
+  const [numberCodeEnabled, toggleNumberCode] = useToggle(false)
+  const [darkThemeEnabled, toggleDarkTheme] = useToggle(false)
 
   if(phase === "help"){
     return (    
@@ -24,7 +27,7 @@ const App = () => {
   if(phase === "settings"){
     return (
       <div className="App">
-        <Settings close={() => setPhase("board")}/>
+        <Settings close={() => setPhase("board")} darkThemeEnabled={darkThemeEnabled} numberCodeEnabled={numberCodeEnabled} toggleDarkTheme={toggleDarkTheme} toggleNumberCode={toggleNumberCode}/>
       </div>
     )
   }
@@ -37,7 +40,11 @@ const App = () => {
         openStatistics={() => setPhase("statistics")}
       />
       {phase === "statistics" && <Statistics close={() => setPhase("board")} /> }
-      <Board/>
+      <ThemeContext.Provider value={darkThemeEnabled}>
+      <CodeContext.Provider value={numberCodeEnabled}>
+        <Board/>
+        </CodeContext.Provider>
+        </ThemeContext.Provider>
     </div>
   );
 }

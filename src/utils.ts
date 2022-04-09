@@ -47,9 +47,12 @@ export const matchCodes = (correctCode: number[], attemptCode: number[]) => {
  * @description Set and Access the currently active colour without prop drilling by using [React Context](https://reactjs.org/docs/context.html)
  */
 export const ColourContext = React.createContext<number | null>(null);
+export const ThemeContext = React.createContext<boolean>(false);
+export const CodeContext = React.createContext<boolean>(false);
 
 export const theme = {
-    grey: "#787c7e",
+    lightGrey: "#d3d6da",
+    darkGrey: "#787c7e",
     black: "#000",
     white: "#FFF"
 }

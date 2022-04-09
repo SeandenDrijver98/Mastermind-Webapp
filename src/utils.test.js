@@ -56,6 +56,14 @@ test('Duplicate incorrect codes arent counted twice', () => {
     expect(matchCodes(correctCode, attemptCode).incorrect).toBe(1);
 })
 
+test('Duplicate colours with 1 correct and one incorrect are counted correct', () => {
+    const correctCode = [4,3,4,2]
+    const attemptCode = [4,4,3,2]
+
+    expect(matchCodes(correctCode, attemptCode).correct).toBe(2);
+    expect(matchCodes(correctCode, attemptCode).incorrect).toBe(2);
+})
+
 test('Sanity', () => {
     const correctCode = [2, 3, 3, 1]
     const attemptCode = [3, 3, 2, 2]
