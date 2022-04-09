@@ -38,7 +38,8 @@ export const Tile: FC<Props> = (props) => {
   
   useEffect(() => {
     onChange(colourNo)
-  }, [colourNo, onChange])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [colourNo])
 
   console.log("activeColour", activeColour)
   return (
