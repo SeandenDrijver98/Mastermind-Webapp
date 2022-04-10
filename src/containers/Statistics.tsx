@@ -3,10 +3,12 @@ import styled from 'styled-components'
 
 import Paper from '@mui/material/Paper'
 import Close from '@mui/icons-material/Close'
+import Divider from '@mui/material/Divider'
 
 import { Stat } from '../components/Stat'
 import { Chart } from '../components/Chart'
 import { Countdown } from '../components/Countdown'
+import { Share } from '../components/Share'
 
 
 const Modal = styled(Paper)`
@@ -35,6 +37,7 @@ const CloseIcon = styled(Close)`
     font-size: 1.5em;
     position: absolute;
     right: 0;
+    cursor: pointer;
 `
 
 const StatsRow = styled.div`
@@ -66,11 +69,11 @@ export const Statistics: FC<Props> = (props) => {
       <h3>GUESS DISTRIBUTION</h3>
       </ModalHeader>
       <Chart />
-      <div>
+      <StatsRow>
         <Countdown />
-        {/* <Separator/>
-        <Share /> */}
-      </div>
+        <Divider flexItem orientation="vertical"/>
+        <Share /> 
+      </StatsRow>
     </Modal>
   )
 }

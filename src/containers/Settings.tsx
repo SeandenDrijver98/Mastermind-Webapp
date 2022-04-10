@@ -32,6 +32,7 @@ const CloseIcon = styled(Close)`
     font-size: 1.5em;
     position: absolute;
     right: 0;
+    cursor: pointer;
 `
 const Section = styled.div`
   display: flex;

@@ -34,14 +34,14 @@ export const Countdown = (props: Props) => {
     useUnmount(() => timerId && clearInterval(timerId));
 
   return (
-    <>
+    <div>
         <CountHeader>
             NEXT MASTERMIND
         </CountHeader>
         <Counter>
             {new Date(timeTillMidnight).toLocaleTimeString()}
         </Counter>
-    </>
+    </div>
   )
 }
 
