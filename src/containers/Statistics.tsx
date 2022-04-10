@@ -6,6 +6,7 @@ import Close from '@mui/icons-material/Close'
 
 import { Stat } from '../components/Stat'
 import { Chart } from '../components/Chart'
+import { Countdown } from '../components/Countdown'
 
 
 const Modal = styled(Paper)`
@@ -65,7 +66,11 @@ export const Statistics: FC<Props> = (props) => {
       <h3>GUESS DISTRIBUTION</h3>
       </ModalHeader>
       <Chart />
-
+      <div>
+        <Countdown />
+        {/* <Separator/>
+        <Share /> */}
+      </div>
     </Modal>
   )
 }
