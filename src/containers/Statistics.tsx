@@ -9,9 +9,16 @@ import { Chart } from '../components/Chart'
 
 
 const Modal = styled(Paper)`
-  width: 40em;
+  width: calc(100% - 2em);
   margin: auto;
-  padding: 1em;
+  padding: 0 1em;
+  position: absolute;
+  z-index: 2;
+
+  @media (min-width: 600px) {
+    width: 30em;
+    padding: 1em;
+  }
 `
 
 const ModalHeader = styled.div`

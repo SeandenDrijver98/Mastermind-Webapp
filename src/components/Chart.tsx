@@ -38,7 +38,6 @@ export const options = {
           drawBorder: false,
           tickColor: 'transparent',
           drawTicks: true,
-
         },
       },
   },

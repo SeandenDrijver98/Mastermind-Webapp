@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useToggle } from 'react-use'
+import styled from 'styled-components'
 // import { useCookie } from 'react-use'
 import { Board } from './containers/Board';
 import { Header } from './containers/Header';
@@ -9,6 +10,19 @@ import {CodeContext, ThemeContext} from './utils'
 
 import './App.css';
 import { Statistics } from './containers/Statistics';
+
+const ModalContainer = styled.div`
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    @media (min-width: 600px) {
+      width: 30em;
+      margin: auto;
+
+    }
+`
 
 type Phases = "help" | "settings" | "board" | "statistics"
 
@@ -39,7 +53,10 @@ const App = () => {
         openSettings={() => setPhase("settings")} 
         openStatistics={() => setPhase("statistics")}
       />
-      {phase === "statistics" && <Statistics close={() => setPhase("board")} /> }
+      <ModalContainer>
+        {phase === "statistics" && <Statistics close={() => setPhase("board")} /> }
+      </ModalContainer>
+
       <ThemeContext.Provider value={darkThemeEnabled}>
       <CodeContext.Provider value={numberCodeEnabled}>
         <Board/>

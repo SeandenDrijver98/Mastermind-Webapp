@@ -4,8 +4,12 @@ import Switch from '@mui/material/Switch'
 import { Close } from '@mui/icons-material'
 
 const Page = styled.div`
-    width: 30em;
-    margin: 0 auto;   
+    width: 20em;
+    margin: 0 auto;  
+    
+    @media (min-width: 600px) {
+      width: 30em;
+    }
 `
 
 const PageTitle = styled.h3`

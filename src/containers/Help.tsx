@@ -5,9 +5,13 @@ import { Close } from '@mui/icons-material'
 import { Row } from '../containers/Row'
 
 const Page = styled.div`
-    width: 30em;
+    width: 20em;
     margin: 0 auto;
-`
+
+    @media (min-width: 600px) {
+      width: 30em;
+    }
+  `
 
 const PageHeader = styled.div`
   display: flex; 
