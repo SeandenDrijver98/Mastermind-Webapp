@@ -17,11 +17,11 @@ const IndicatorBox = styled.h2<{played: boolean}>`
     position: absolute;
 
     &&.correct {
-        right: -3rem;
+        right: -2rem;
         color: ${props => props.played ? '#6aaa64' : '#787c7e'}
     }
     &&.incorrect {
-        left: -3rem;
+        left: -2rem;
         color: ${props => props.played ? '#c9b458' : '#787c7e'};
     }
 `
