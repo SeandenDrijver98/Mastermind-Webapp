@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Close } from '@mui/icons-material'
+import {default as muiIconButton} from '@mui/material/IconButton' 
 
 import { Row } from '../containers/Row'
 
@@ -28,13 +29,20 @@ const PageTitle = styled.h3`
     font-weight: 700;
 `
 
-const CloseIcon = styled(Close)`
-    margin: auto 0;
-    font-size: 1.5em;
-    position: absolute;
-    right: 0;
-    cursor: pointer;
+const IconButton = styled(muiIconButton)`
+    && {
+      margin: auto 0 ;
+      font-size: 1.5em;
+      position: absolute; 
+      right: 0 ;
+    }
+
+  &:hover {
+    background-color: transparent !important;
+    color: black;
+  }
 `
+
 
 type Props = {
   close: () => void
@@ -60,7 +68,9 @@ export const Help: FC<Props> = (props) => {
     <Page>
         <PageHeader>
             <PageTitle>HOW TO PLAY</PageTitle>
-            <CloseIcon onClick={close}/>
+            <IconButton onClick={close}>
+              <Close />
+            </IconButton>
         </PageHeader>
         <p>Guess the <b>COLOUR CODE</b> in six tries.</p>
         <p>Each guess must constist of 4 colours. Hit the enter button to submit.</p>

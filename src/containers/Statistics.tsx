@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Paper from '@mui/material/Paper'
 import Close from '@mui/icons-material/Close'
 import Divider from '@mui/material/Divider'
+import {default as muiIconButton} from '@mui/material/IconButton' 
 
 import { Stat } from '../components/Stat'
 import { Chart } from '../components/Chart'
@@ -32,18 +33,24 @@ const ModalHeader = styled.div`
   align-items: center;
 `
 
-const CloseIcon = styled(Close)`
-    margin: auto 0;
-    font-size: 1.5em;
-    position: absolute;
-    right: 0;
-    cursor: pointer;
-`
-
 const StatsRow = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+`
+
+const IconButton = styled(muiIconButton)`
+    && {
+      margin: auto 0 ;
+      font-size: 1.5em;
+      position: absolute; 
+      right: 0 ;
+    }
+
+  &:hover {
+    background-color: transparent !important;
+    color: black;
+  }
 `
 
 type Props = {
@@ -57,7 +64,9 @@ export const Statistics: FC<Props> = (props) => {
     <Modal elevation={3} >
       <ModalHeader>
         <h3>STATISTICS</h3>
-        <CloseIcon onClick={close}/>
+        <IconButton  onClick={close}>
+          <Close/>
+        </IconButton>
       </ModalHeader>
       <StatsRow>
         <Stat title="Played" value={'5'}/>

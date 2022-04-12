@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { baseColours, CodeContext, theme } from '../utils'
 
-const Control = styled.div<{selected: boolean, color: string, numberCodeEnabled: boolean}>`
+const Control = styled.button<{selected: boolean, color: string, numberCodeEnabled: boolean}>`
     height: 3rem;
     width: 3rem;
     border: ${props => props.selected ? 'black' : 'transparent'} 2px solid;

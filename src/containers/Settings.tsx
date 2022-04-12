@@ -2,6 +2,7 @@ import React, { ChangeEvent, FC } from 'react'
 import styled from 'styled-components'
 import Switch from '@mui/material/Switch'
 import { Close } from '@mui/icons-material'
+import {default as muiIconButton} from '@mui/material/IconButton' 
 
 const Page = styled.div`
     width: 20em;
@@ -27,13 +28,6 @@ const PageHeader = styled.div`
   align-items: center;
 `
 
-const CloseIcon = styled(Close)`
-    margin: auto 0;
-    font-size: 1.5em;
-    position: absolute;
-    right: 0;
-    cursor: pointer;
-`
 const Section = styled.div`
   display: flex;
   flex-directio: column;
@@ -41,6 +35,21 @@ const Section = styled.div`
   border-bottom: 1px solid #333;
   padding: 1em 0;
 `
+
+const IconButton = styled(muiIconButton)`
+    && {
+      margin: auto 0 ;
+      font-size: 1.5em;
+      position: absolute; 
+      right: 0 ;
+    }
+
+  &:hover {
+    background-color: transparent !important;
+    color: black;
+  }
+`
+
 type Props = {
   close: () => void
   darkThemeEnabled: boolean
@@ -56,7 +65,9 @@ export const Settings:FC<Props> = (props) => {
     <Page>
       <PageHeader>
           <PageTitle>SETTINGS</PageTitle>
-          <CloseIcon onClick={close}/>
+          <IconButton  onClick={close}>
+            <Close/>
+          </IconButton>
         </PageHeader>
         <Section>
           <div>
