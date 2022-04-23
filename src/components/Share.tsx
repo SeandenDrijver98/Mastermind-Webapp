@@ -24,23 +24,22 @@ const StyledShare = styled.button`
 type Props = {}
 
 export const Share = (props: Props) => {
-  const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
-  const handleClick = () => {
-      window.navigator.clipboard.writeText("Share")
-      setOpen(true);
+    const handleClick = () => {
+        window.navigator.clipboard.writeText('Share')
+        setOpen(true)
+    }
 
-  }
+    const handleTooltipClose = () => {
+        setOpen(false)
+    }
 
-  const handleTooltipClose = () => {
-    setOpen(false);
-  };
-
-  return (
-          <ClickAwayListener onClickAway={handleTooltipClose}>
-              <Tooltip
+    return (
+        <ClickAwayListener onClickAway={handleTooltipClose}>
+            <Tooltip
                 PopperProps={{
-                  disablePortal: true,
+                    disablePortal: true,
                 }}
                 onClose={handleTooltipClose}
                 open={open}
@@ -49,11 +48,15 @@ export const Share = (props: Props) => {
                 leaveDelay={200}
                 // disableTouchListener
                 title="Copied results to clipboard"
-              >      
-                <StyledShare onClick={handleClick} > SHARE  &nbsp;<ShareIcon/></StyledShare>
-             </Tooltip>
-            </ClickAwayListener>
-  )
+            >
+                <StyledShare onClick={handleClick}>
+                    {' '}
+                    SHARE &nbsp;
+                    <ShareIcon />
+                </StyledShare>
+            </Tooltip>
+        </ClickAwayListener>
+    )
 }
 
 export default Share

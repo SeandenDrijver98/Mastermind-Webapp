@@ -1,4 +1,4 @@
-import React, { forwardRef} from 'react'
+import React, { forwardRef } from 'react'
 import styled from 'styled-components'
 import { Tile } from '../components/Tile'
 
@@ -10,7 +10,7 @@ const StyledRow = styled.div`
     position: relative;
 `
 
-const IndicatorBox = styled.h2<{played: boolean}>`
+const IndicatorBox = styled.h2<{ played: boolean }>`
     border: 2px solid #787c7e
     width: 2rem;
     height: 2rem;
@@ -18,19 +18,22 @@ const IndicatorBox = styled.h2<{played: boolean}>`
 
     &&.correct {
         right: -2rem;
-        color: ${props => props.played ? '#6aaa64' : '#787c7e'}
+        color: ${(props) => (props.played ? '#6aaa64' : '#787c7e')}
     }
     &&.incorrect {
         left: -2rem;
-        color: ${props => props.played ? '#c9b458' : '#787c7e'};
+        color: ${(props) => (props.played ? '#c9b458' : '#787c7e')};
     }
 `
 
-type Props = { 
-    ref: React.MutableRefObject<null>,
-    played: boolean, 
-    active: boolean, 
-    onSubmit: (rowColours: number[], callback: (correct: number,incorrect: number) => void) => void 
+type Props = {
+    ref: React.MutableRefObject<null>
+    played: boolean
+    active: boolean
+    onSubmit: (
+        rowColours: number[],
+        callback: (correct: number, incorrect: number) => void
+    ) => void
     updateColour: (colour: number, i: number) => void
     colours: number[]
 }
@@ -40,12 +43,22 @@ export const Row = forwardRef((props: Props, ref: any) => {
 
     return (
         <StyledRow ref={ref}>
-            <IndicatorBox played={played} className="incorrect">0</IndicatorBox>
-            {colours.map((selectedColour, i) =>
-                (<Tile setColour={selectedColour} key={i} id={i} onChange={(colour) => updateColour(colour, i)} played={played} active={active}/> ))
-            }
-            <IndicatorBox played={played} className="correct">0</IndicatorBox>
-
+            <IndicatorBox played={played} className="incorrect">
+                0
+            </IndicatorBox>
+            {colours.map((selectedColour, i) => (
+                <Tile
+                    setColour={selectedColour}
+                    key={i}
+                    id={i}
+                    onChange={(colour) => updateColour(colour, i)}
+                    played={played}
+                    active={active}
+                />
+            ))}
+            <IndicatorBox played={played} className="correct">
+                0
+            </IndicatorBox>
         </StyledRow>
     )
 })

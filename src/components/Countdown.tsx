@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import {useMount, useUnmount} from 'react-use'
+import React, { useState } from 'react'
+import { useMount, useUnmount } from 'react-use'
 
 import styled from 'styled-components'
 
@@ -19,30 +19,28 @@ const CountHeader = styled.h2`
 type Props = {}
 
 export const Countdown = (props: Props) => {
-    const [timerId, setTimerId]  = useState<NodeJS.Timer>()
+    const [timerId, setTimerId] = useState<NodeJS.Timer>()
     const [now, setNow] = useState(new Date())
     const midnight = new Date()
-    midnight.setHours(22,0,0,0); // next midnight
+    midnight.setHours(22, 0, 0, 0) // next midnight
 
     const timeTillMidnight = midnight.getTime() - now.getTime()
     useMount(() => {
-        setTimerId(setInterval(() => {
-            setNow(new Date())
-        }, 1000))
+        setTimerId(
+            setInterval(() => {
+                setNow(new Date())
+            }, 1000)
+        )
     })
 
-    useUnmount(() => timerId && clearInterval(timerId));
+    useUnmount(() => timerId && clearInterval(timerId))
 
-  return (
-    <div>
-        <CountHeader>
-            NEXT MASTERMIND
-        </CountHeader>
-        <Counter>
-            {new Date(timeTillMidnight).toLocaleTimeString()}
-        </Counter>
-    </div>
-  )
+    return (
+        <div>
+            <CountHeader>NEXT MASTERMIND</CountHeader>
+            <Counter>{new Date(timeTillMidnight).toLocaleTimeString()}</Counter>
+        </div>
+    )
 }
 
 export default Countdown
