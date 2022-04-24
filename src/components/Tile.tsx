@@ -15,6 +15,7 @@ const StyledTile = styled('button')<{
     colour: number
     played: boolean
     numberCodeEnabled: boolean
+    active: boolean
 }>`
     && {
         background-color: ${(props) =>
@@ -32,6 +33,7 @@ const StyledTile = styled('button')<{
         justify-content: center;
         color: ${theme.darkGrey};
         font-weight: bold;
+        cursor: ${(props) => (props.active ? 'pointer' : undefined)};
     }
 `
 
@@ -43,11 +45,11 @@ export const Tile: FC<Props> = (props) => {
 
     useEffect(() => {
         onChange(colourNo)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [colourNo])
 
     return (
         <StyledTile
+            active={active}
             tabIndex={active ? 0 : -1}
             colour={colourNo}
             played={played}

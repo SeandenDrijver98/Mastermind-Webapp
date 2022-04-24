@@ -19,18 +19,10 @@ const StyledBoard = styled.div`
     text-align: center;
 `
 
-// const HelperText = styled.span<{position: 'left' | 'right'}>`
-//   font-size: 0.7rem;
-//   position: absolute;
-//   top: -0.5rem;
-//   ${props => props.position === 'left' ? 'left: -3.5rem' : 'right: -3rem' }
-// `
 const maxRows = 6
 const colourCode = generateColourCode()
 
-type Props = {}
-
-export const Board: FC<Props> = () => {
+export const Board = () => {
     const [currentRow, { dec, reset }] = useCounter(maxRows - 1)
     const rowRefs = useRef<[] | HTMLElement[]>([])
 
@@ -82,6 +74,7 @@ export const Board: FC<Props> = () => {
                 .join(', ')} `
         )
         reset()
+        window.location.reload()
         // force react rerender or window refresh
     }
 

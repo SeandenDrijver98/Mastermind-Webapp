@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useToggle } from 'react-use'
 import styled from 'styled-components'
 // import { useCookie } from 'react-use'

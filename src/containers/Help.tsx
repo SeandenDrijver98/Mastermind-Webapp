@@ -43,6 +43,18 @@ const IconButton = styled(muiIconButton)`
     }
 `
 
+const StyledCtaButton = styled.button`
+    width: 12rem;
+    border-radius: 4px;
+    padding: 0.2rem;
+    margin-top: 0.5rem;
+    background-color: #d3d6da;
+    height: 2.5em;
+    font-weight: bold;
+    border: 0;
+    cursor: pointer;
+`
+
 type Props = {
     close: () => void
 }
@@ -85,7 +97,7 @@ export const Help: FC<Props> = (props) => {
             <p>
                 <strong>Examples</strong>
             </p>
-            <span style={{ textAlign: 'center', maxWidth: '16rem' }}>
+            <span>
                 <Row
                     ref={firstExampleRef}
                     active={false}
@@ -98,7 +110,7 @@ export const Help: FC<Props> = (props) => {
             <p style={{ marginTop: '0.2em' }}>
                 One colour in the guessed code is in the correct spot.
             </p>
-            <span style={{ textAlign: 'center' }}>
+            <span>
                 <Row
                     ref={secondExampleRef}
                     active={false}
@@ -114,6 +126,9 @@ export const Help: FC<Props> = (props) => {
             <hr />
             <p>
                 <strong>A new COLOUR CODE will be available each day!</strong>
+            </p>
+            <p>
+                <StyledCtaButton onClick={close}>Got It!</StyledCtaButton>
             </p>
         </Page>
     )

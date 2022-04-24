@@ -10,15 +10,13 @@ const StyledSubmitButton = styled.button`
     height: 2.5em;
     font-weight: bold;
     border: 0;
+    cursor: pointer;
 `
 type Props = { onSubmit: () => void }
 
 export const SubmitButton = (props: Props) => {
     return (
-        <StyledSubmitButton onClick={props.onSubmit}>
-            {' '}
-            ENTER{' '}
-        </StyledSubmitButton>
+        <StyledSubmitButton onClick={props.onSubmit}>ENTER</StyledSubmitButton>
     )
 }
 

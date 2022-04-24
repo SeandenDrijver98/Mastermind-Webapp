@@ -62,5 +62,6 @@ export const Row = forwardRef((props: Props, ref: any) => {
         </StyledRow>
     )
 })
+Row.displayName = 'Row'
 
 export default Row

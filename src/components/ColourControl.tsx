@@ -18,6 +18,7 @@ const Control = styled.button<{
     justify-content: center;
     align-items: center;
     font-weight: bold;
+    cursor: pointer;
 
     &&:last-of-type {
         margin-right: 0;
