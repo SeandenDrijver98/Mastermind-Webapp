@@ -21,8 +21,10 @@ const StyledBoard = styled.div`
 
 const maxRows = 6
 const colourCode = generateColourCode()
-
-export const Board = () => {
+type Props = {
+    showStatistics: () => void
+}
+export const Board: FC<Props> = (props) => {
     const [currentRow, { dec, reset }] = useCounter(maxRows - 1)
     const rowRefs = useRef<[] | HTMLElement[]>([])
 
@@ -45,6 +47,7 @@ export const Board = () => {
 
     const endgame = () => {
         alert('Mission successful, You cracked the code!')
+        props.showStatistics()
     }
 
     const handleSubmit = () => {

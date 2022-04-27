@@ -66,7 +66,7 @@ const App = () => {
 
             <ThemeContext.Provider value={darkThemeEnabled}>
                 <CodeContext.Provider value={numberCodeEnabled}>
-                    <Board />
+                    <Board showStatistics={() => setPhase('statistics')} />
                 </CodeContext.Provider>
             </ThemeContext.Provider>
         </div>
