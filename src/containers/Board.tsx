@@ -90,6 +90,7 @@ export const Board: FC<Props> = (props) => {
                     <Row
                         ref={(el: HTMLElement) => (rowRefs.current[i] = el)}
                         key={i}
+                        rowNo={i}
                         played={i >= currentRow}
                         active={i === currentRow}
                         onSubmit={checkColours}

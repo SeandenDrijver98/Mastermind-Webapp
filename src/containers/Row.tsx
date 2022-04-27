@@ -28,6 +28,7 @@ const IndicatorBox = styled.h2<{ played: boolean }>`
 
 type Props = {
     ref: React.MutableRefObject<null>
+    rowNo: number
     played: boolean
     active: boolean
     onSubmit: (
@@ -39,7 +40,7 @@ type Props = {
 }
 
 export const Row = forwardRef((props: Props, ref: any) => {
-    const { played, active, colours, updateColour } = props
+    const { played, active, colours, rowNo, updateColour } = props
 
     return (
         <StyledRow ref={ref}>
@@ -48,6 +49,7 @@ export const Row = forwardRef((props: Props, ref: any) => {
             </IndicatorBox>
             {colours.map((selectedColour, i) => (
                 <Tile
+                    ariaLabel={`Tile number ${i} on row ${rowNo}`}
                     setColour={selectedColour}
                     key={i}
                     id={i}

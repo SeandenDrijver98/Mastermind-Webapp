@@ -9,6 +9,7 @@ interface Props {
     setColour?: number
     played: boolean
     active: boolean
+    ariaLabel: string
 }
 
 const StyledTile = styled('button')<{
@@ -38,7 +39,7 @@ const StyledTile = styled('button')<{
 `
 
 export const Tile: FC<Props> = (props) => {
-    const { onChange, setColour, played, active } = props
+    const { onChange, setColour, played, active, ariaLabel } = props
     const [colourNo, setColourNo] = useState(setColour || 0)
     const activeColour = useContext(ColourContext)
     const numberCodeEnabled = useContext(CodeContext)
@@ -49,6 +50,7 @@ export const Tile: FC<Props> = (props) => {
 
     return (
         <StyledTile
+            aria-label={ariaLabel}
             active={active}
             tabIndex={active ? 0 : -1}
             colour={colourNo}

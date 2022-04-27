@@ -99,6 +99,7 @@ export const Help: FC<Props> = (props) => {
             </p>
             <span>
                 <Row
+                    rowNo={1}
                     ref={firstExampleRef}
                     active={false}
                     played={true}
@@ -112,6 +113,7 @@ export const Help: FC<Props> = (props) => {
             </p>
             <span>
                 <Row
+                    rowNo={2}
                     ref={secondExampleRef}
                     active={false}
                     played={true}
