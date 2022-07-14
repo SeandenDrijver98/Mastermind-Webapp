@@ -41,12 +41,12 @@ export const Header: FC<Props> = ({
             </div>
             <h1 className="title">Mastermind</h1>
             <div className="right side">
-                <IconButton
+                {/* <IconButton
                     onClick={openStatistics}
                     aria-label="See your past Statistics"
                 >
                     <BarChart />
-                </IconButton>
+                </IconButton> */}
                 <IconButton
                     disableTouchRipple
                     onClick={openSettings}

@@ -2,10 +2,10 @@ import React from 'react'
 
 export const baseColours = {
     none: 'transparent',
-    grapefruit: '#ED5565',
-    Sunflower: '#FFCE54',
-    Grass: '#A0D468',
-    Aqua: '#4FC1E9',
+    Red: '#ED5565', // Grapefruit
+    Yellow: '#FFCE54', // Sunflower
+    Green: '#A0D468', // Grass
+    Blue: '#4FC1E9', // Aqua
 }
 // "Lavender":"#AC92EC",
 // "Pink Rose":"#EC87C0",
