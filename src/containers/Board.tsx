@@ -46,8 +46,9 @@ export const Board: FC<Props> = (props) => {
     }
 
     const endgame = () => {
-        alert('Mission successful, You cracked the code!')
-        props.showStatistics()
+        alert('Congratulations, You cracked the code!')
+        window.location.reload()
+        // props.showStatistics()
     }
 
     const handleSubmit = () => {
@@ -84,8 +85,6 @@ export const Board: FC<Props> = (props) => {
     return (
         <ColourContext.Provider value={activeColour}>
             <StyledBoard>
-                {/* <HelperText position="right">Correct</HelperText>
-      <HelperText position="left">Incorrect</HelperText> */}
                 {[...Array(maxRows)].map((obj, i) => (
                     <Row
                         ref={(el: HTMLElement) => (rowRefs.current[i] = el)}
