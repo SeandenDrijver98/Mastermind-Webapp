@@ -47,6 +47,8 @@ const StyledCtaButton = styled.button`
     width: 12rem;
     border-radius: 4px;
     padding: 0.2rem;
+    margin: auto;
+    display: block;
     margin-top: 0.5rem;
     background-color: #d3d6da;
     height: 2.5em;

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { useToggle } from 'react-use'
+import { useToggle, useCookie, useMount } from 'react-use'
 import styled from 'styled-components'
-// import { useCookie } from 'react-use'
 import { Board } from './containers/Board'
 import { Header } from './containers/Header'
 import { Help } from './containers/Help'
@@ -29,11 +28,18 @@ const App = () => {
     const [phase, setPhase] = useState<Phases>('board')
     const [numberCodeEnabled, toggleNumberCode] = useToggle(false)
     const [darkThemeEnabled, toggleDarkTheme] = useToggle(false)
+    const [helpDismissed, setHelpDismissed] = useCookie('help-dismissed')
+
+    useMount(() => !helpDismissed && setPhase('help'))
+    const handleHelpClose = () => {
+        setPhase('board')
+        setHelpDismissed('true')
+    }
 
     if (phase === 'help') {
         return (
             <div className="App">
-                <Help close={() => setPhase('board')} />
+                <Help close={handleHelpClose} />
             </div>
         )
     }
