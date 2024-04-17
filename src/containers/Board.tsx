@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { Row } from './Row'
 import { ColourSelector } from './ColourSelector'
-import { SubmitButton } from '../components/SubmitButton'
+import { SubmitButton, Alert } from '../components'
 import {
     generateColourCode,
     baseColours,
@@ -72,6 +72,7 @@ export const Board: FC<Props> = (props) => {
     }
 
     if (currentRow === -1) {
+        // return <Alert success={false} colourCode={colourCode} />
         alert(
             `Game over! \n The correct code was: ${colourCode
                 .map((code) => Object.keys(baseColours)[code])
