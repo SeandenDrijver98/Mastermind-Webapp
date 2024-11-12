@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Switch from '@mui/material/Switch'
 import { Close } from '@mui/icons-material'
 import { default as muiIconButton } from '@mui/material/IconButton'
+import Paper from '@mui/material/Paper'
 
 const Page = styled.div`
     width: 20em;
@@ -13,14 +14,20 @@ const Page = styled.div`
     }
 `
 
-const PageTitle = styled.h3`
-    text-align: center;
-    margin-top: 0.6em;
-    font-size: 1em;
-    font-weight: 700;
+const Modal = styled(Paper)`
+    width: calc(100% - 2em);
+    margin: auto;
+    padding: 0 1em;
+    position: absolute;
+    z-index: 2;
+
+    @media (min-width: 600px) {
+        width: 30em;
+        padding: 1em;
+    }
 `
 
-const PageHeader = styled.div`
+const ModalHeader = styled.div`
     display: flex;
     width: 100%;
     position: relative;
@@ -74,13 +81,13 @@ export const Settings: FC<Props> = (props) => {
     } = props
 
     return (
-        <Page>
-            <PageHeader>
-                <PageTitle>SETTINGS</PageTitle>
+        <Modal elevation={3}>
+            <ModalHeader>
+                <h3>SETTINGS</h3>
                 <IconButton onClick={close}>
                     <Close />
                 </IconButton>
-            </PageHeader>
+            </ModalHeader>
             <Section>
                 <div>
                     <strong>HARD MODE</strong>
@@ -115,7 +122,7 @@ export const Settings: FC<Props> = (props) => {
                 </div>
                 <a href="mailto: sddrijver+mastermind@gmail.com">Email</a>
             </Section>
-        </Page>
+        </Modal>
     )
 }
 

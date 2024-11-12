@@ -3,6 +3,8 @@ import { useToggle, useCookie, useMount } from 'react-use'
 import styled from 'styled-components'
 import { Board } from './containers/Board'
 import { Header } from './containers/Header'
+import { SignIn } from './containers/Signin'
+import { SignUp } from './containers/Signup'
 import { Help } from './containers/Help'
 import { Settings } from './containers/Settings'
 import { CodeContext, ThemeContext } from './utils'
@@ -22,7 +24,7 @@ const ModalContainer = styled.div`
     }
 `
 
-type Phases = 'help' | 'settings' | 'board' | 'statistics'
+type Phases = 'help' | 'settings' | 'board' | 'statistics' | 'signin' | 'signup'
 
 const App = () => {
     const [phase, setPhase] = useState<Phases>('board')
@@ -43,19 +45,6 @@ const App = () => {
             </div>
         )
     }
-    if (phase === 'settings') {
-        return (
-            <div className="App">
-                <Settings
-                    close={() => setPhase('board')}
-                    darkThemeEnabled={darkThemeEnabled}
-                    numberCodeEnabled={numberCodeEnabled}
-                    toggleDarkTheme={toggleDarkTheme}
-                    toggleNumberCode={toggleNumberCode}
-                />
-            </div>
-        )
-    }
 
     return (
         <div className="App">
@@ -63,10 +52,32 @@ const App = () => {
                 openHelp={() => setPhase('help')}
                 openSettings={() => setPhase('settings')}
                 openStatistics={() => setPhase('statistics')}
+                openLogin={() => setPhase('signin')}
             />
             <ModalContainer>
                 {phase === 'statistics' && (
                     <Statistics close={() => setPhase('board')} />
+                )}
+                {phase === 'settings' && (
+                    <Settings
+                        close={() => setPhase('board')}
+                        darkThemeEnabled={darkThemeEnabled}
+                        numberCodeEnabled={numberCodeEnabled}
+                        toggleDarkTheme={toggleDarkTheme}
+                        toggleNumberCode={toggleNumberCode}
+                    />
+                )}
+                {phase === 'signin' && (
+                    <SignIn
+                        signup={() => setPhase('signup')}
+                        close={() => setPhase('board')}
+                    />
+                )}
+                {phase === 'signup' && (
+                    <SignUp
+                        signin={() => setPhase('signin')}
+                        close={() => setPhase('board')}
+                    />
                 )}
             </ModalContainer>
 
