@@ -1,5 +1,5 @@
 import { FC, useRef, useState } from 'react'
-import { useCounter } from 'react-use'
+import { useCounter, useWindowSize } from 'react-use'
 import styled from 'styled-components'
 
 import { Row } from './Row'
@@ -45,12 +45,6 @@ export const Board: FC<Props> = (props) => {
         callback(correct, incorrect)
     }
 
-    const endgame = () => {
-        alert('Congratulations, You cracked the code!')
-        window.location.reload()
-        // props.showStatistics()
-    }
-
     const handleSubmit = () => {
         dec()
         checkColours(selectedColours, (correct, incorrect) => {
@@ -62,7 +56,12 @@ export const Board: FC<Props> = (props) => {
             }
 
             if (correct === 4) {
-                endgame()
+                const { width, height } = useWindowSize()
+                return (
+                    <>
+                        <Alert success={true} colourCode={colourCode} />
+                    </>
+                )
             }
         })
     }
@@ -72,12 +71,7 @@ export const Board: FC<Props> = (props) => {
     }
 
     if (currentRow === -1) {
-        // return <Alert success={false} colourCode={colourCode} />
-        alert(
-            `Game over! \n The correct code was: ${colourCode
-                .map((code) => Object.keys(baseColours)[code])
-                .join(', ')} `
-        )
+        return <Alert success={false} colourCode={colourCode} />
         reset()
         window.location.reload()
         // force react rerender or window refresh
@@ -100,6 +94,7 @@ export const Board: FC<Props> = (props) => {
                             updatedColours[colourIndex] = colour
                             updateSelectedColours(updatedColours)
                         }}
+                        result={false}
                     />
                 ))}
                 <ColourSelector onSelect={handleColourSelect} />

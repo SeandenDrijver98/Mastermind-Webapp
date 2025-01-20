@@ -108,6 +108,7 @@ export const Help: FC<Props> = (props) => {
                     colours={[1, 3, 2, 4]}
                     onSubmit={() => null}
                     updateColour={() => null}
+                    result={false}
                 />
             </span>
             <p style={{ marginTop: '0.2em' }}>
@@ -122,6 +123,7 @@ export const Help: FC<Props> = (props) => {
                     colours={[1, 3, 2, 4]}
                     onSubmit={() => null}
                     updateColour={() => null}
+                    result={false}
                 />
             </span>
             <p style={{ marginTop: '0.2em' }}>

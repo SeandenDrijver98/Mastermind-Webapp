@@ -10,11 +10,13 @@ const StyledRow = styled.div`
     position: relative;
 `
 
-const IndicatorBox = styled.h2<{ played: boolean }>`
+const IndicatorBox = styled.h2<{ played: boolean; result?: boolean }>`
     border: 2px solid #787c7e
     width: 2rem;
     height: 2rem;
     position: absolute;
+    display: ${(props) => (props.result ? 'none' : 'block')};
+
 
     &&.correct {
         right: -2rem;
@@ -37,14 +39,15 @@ type Props = {
     ) => void
     updateColour: (colour: number, i: number) => void
     colours: number[]
+    result: boolean
 }
 
 export const Row = forwardRef((props: Props, ref: any) => {
-    const { played, active, colours, rowNo, updateColour } = props
+    const { played, active, colours, rowNo, updateColour, result } = props
 
     return (
         <StyledRow ref={ref}>
-            <IndicatorBox played={played} className="incorrect">
+            <IndicatorBox played={played} className="incorrect" result={result}>
                 0
             </IndicatorBox>
             {colours.map((selectedColour, i) => (
@@ -58,7 +61,7 @@ export const Row = forwardRef((props: Props, ref: any) => {
                     active={active}
                 />
             ))}
-            <IndicatorBox played={played} className="correct">
+            <IndicatorBox played={played} className="correct" result={result}>
                 0
             </IndicatorBox>
         </StyledRow>
