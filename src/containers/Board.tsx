@@ -11,6 +11,7 @@ import {
     matchCodes,
     ColourContext,
 } from '../utils'
+import ConfettiExplosion from 'react-confetti-explosion'
 
 const StyledBoard = styled.div`
     position: relative;
@@ -32,6 +33,9 @@ export const Board: FC<Props> = (props) => {
     const [selectedColours, updateSelectedColours] = useState<number[]>([
         0, 0, 0, 0,
     ])
+    const [gameState, updateGameState] = useState<'busy' | 'won' | 'lost'>(
+        'won'
+    )
 
     const checkColours = (
         selectedColours: number[],
@@ -54,14 +58,8 @@ export const Board: FC<Props> = (props) => {
                 rowRefs.current[currentRow].childNodes[5].textContent =
                     correct.toString()
             }
-
-            if (correct === 4) {
-                const { width, height } = useWindowSize()
-                return (
-                    <>
-                        <Alert success={true} colourCode={colourCode} />
-                    </>
-                )
+            if (correct == 4 && gameState === 'busy') {
+                updateGameState('won')
             }
         })
     }
@@ -70,15 +68,19 @@ export const Board: FC<Props> = (props) => {
         updateActiveColour(id)
     }
 
-    if (currentRow === -1) {
-        return <Alert success={false} colourCode={colourCode} />
-        reset()
-        window.location.reload()
+    if (currentRow === -1 && gameState === 'busy') {
+        updateGameState('lost')
         // force react rerender or window refresh
     }
 
     return (
         <ColourContext.Provider value={activeColour}>
+            {gameState === 'won' && (
+                <Alert success={true} colourCode={colourCode} />
+            )}
+            {gameState === 'lost' && (
+                <Alert success={false} colourCode={colourCode} />
+            )}
             <StyledBoard>
                 {[...Array(maxRows)].map((obj, i) => (
                     <Row

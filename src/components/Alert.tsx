@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import Row from '../containers/Row'
+import ConfettiExplosion from 'react-confetti-explosion'
 
 type Props = {
     success: boolean
@@ -21,6 +22,23 @@ export const Alert: FC<Props> = (props) => {
                     margin: '0 auto',
                 }}
             >
+                <div style={{ position: 'relative' }}>
+                    <div
+                        style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                        }}
+                    >
+                        <ConfettiExplosion
+                            force={0.5}
+                            duration={3000}
+                            particleCount={300}
+                        />
+                    </div>
+                </div>
+
                 <h1>Congratulations, You cracked the code!</h1>
                 <p>
                     The correct code was:{' '}
