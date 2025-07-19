@@ -34,7 +34,7 @@ export const Board: FC<Props> = (props) => {
         0, 0, 0, 0,
     ])
     const [gameState, updateGameState] = useState<'busy' | 'won' | 'lost'>(
-        'won'
+        'busy'
     )
 
     const checkColours = (

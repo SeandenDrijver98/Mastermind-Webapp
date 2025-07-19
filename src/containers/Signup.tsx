@@ -11,43 +11,46 @@ import Link from '@mui/material/Link'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
-import MuiCard from '@mui/material/Card'
+import Paper from '@mui/material/Paper'
 import { styled } from '@mui/material/styles'
+import Close from '@mui/icons-material/Close'
+import { default as muiIconButton } from '@mui/material/IconButton'
 import { Google, Facebook } from '@mui/icons-material'
 
-const Card = styled(MuiCard)(({ theme }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    alignSelf: 'center',
-    width: '100%',
-    padding: theme.spacing(4),
-    gap: theme.spacing(2),
-    margin: 'auto',
-    boxShadow:
-        'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
-    [theme.breakpoints.up('sm')]: {
-        width: '450px',
-    },
-}))
+const Modal = styled(Paper)`
+    width: calc(100% - 2em);
+    margin: auto;
+    padding: 0 1em;
+    position: absolute;
+    z-index: 2;
 
-const SignUpContainer = styled(Stack)(({ theme }) => ({
-    height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
-    minHeight: '100%',
-    padding: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-        padding: theme.spacing(4),
-    },
-    '&::before': {
-        content: '""',
-        display: 'block',
-        position: 'absolute',
-        zIndex: -1,
-        inset: 0,
-        backgroundImage:
-            'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))',
-        backgroundRepeat: 'no-repeat',
-    },
-}))
+    @media (min-width: 600px) {
+        width: 30em;
+        padding: 1em;
+    }
+`
+
+const ModalHeader = styled('div')`
+    display: flex;
+    width: 100%;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+`
+
+const IconButton = styled(muiIconButton)`
+    && {
+        margin: auto 0;
+        font-size: 1.5em;
+        position: absolute;
+        right: 0;
+    }
+
+    &:hover {
+        background-color: transparent !important;
+        color: black;
+    }
+`
 
 type Props = {
     close: () => void
@@ -116,130 +119,129 @@ export const SignUp: React.FC<Props> = ({ close, signin }) => {
     }
 
     return (
-        <SignUpContainer direction="column" justifyContent="space-between">
-            <Card variant="outlined">
+        <Modal elevation={3}>
+            <ModalHeader>
                 <Typography
                     component="h1"
                     variant="h4"
                     sx={{
                         width: '100%',
                         fontSize: 'clamp(2rem, 10vw, 2.15rem)',
+                        textAlign: 'center',
                     }}
                 >
                     Sign up
                 </Typography>
-                <Box
-                    component="form"
-                    onSubmit={handleSubmit}
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 2,
-                    }}
-                >
-                    <FormControl>
-                        <FormLabel htmlFor="name">Full name</FormLabel>
-                        <TextField
-                            autoComplete="name"
-                            name="name"
-                            required
-                            fullWidth
-                            id="name"
-                            placeholder="Jon Snow"
-                            error={nameError}
-                            helperText={nameErrorMessage}
-                            color={nameError ? 'error' : 'primary'}
-                        />
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel htmlFor="email">Email</FormLabel>
-                        <TextField
-                            required
-                            fullWidth
-                            id="email"
-                            placeholder="your@email.com"
-                            name="email"
-                            autoComplete="email"
-                            variant="outlined"
-                            error={emailError}
-                            helperText={emailErrorMessage}
-                            color={passwordError ? 'error' : 'primary'}
-                        />
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel htmlFor="password">Password</FormLabel>
-                        <TextField
-                            required
-                            fullWidth
-                            name="password"
-                            placeholder="••••••"
-                            type="password"
-                            id="password"
-                            autoComplete="new-password"
-                            variant="outlined"
-                            error={passwordError}
-                            helperText={passwordErrorMessage}
-                            color={passwordError ? 'error' : 'primary'}
-                        />
-                    </FormControl>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                value="allowExtraEmails"
-                                color="primary"
-                            />
-                        }
-                        label="I want to receive updates via email."
+                <IconButton onClick={close}>
+                    <Close />
+                </IconButton>
+            </ModalHeader>
+            <Box
+                component="form"
+                onSubmit={handleSubmit}
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                }}
+            >
+                <FormControl>
+                    <FormLabel htmlFor="name">Full name</FormLabel>
+                    <TextField
+                        autoComplete="name"
+                        name="name"
+                        required
+                        fullWidth
+                        id="name"
+                        placeholder="Jon Snow"
+                        error={nameError}
+                        helperText={nameErrorMessage}
+                        color={nameError ? 'error' : 'primary'}
                     />
-                    <Button
-                        type="submit"
+                </FormControl>
+                <FormControl>
+                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <TextField
+                        required
                         fullWidth
-                        variant="contained"
-                        onClick={validateInputs}
-                    >
-                        Sign up
-                    </Button>
-                    <Typography sx={{ textAlign: 'center' }}>
-                        Already have an account?
-                        <Link
-                            component="button"
-                            type="button"
-                            onClick={signin}
-                            variant="body2"
-                            sx={{ alignSelf: 'baseline' }}
-                        >
-                            Sign In
-                        </Link>
-                    </Typography>
-                </Box>
-                <Divider>
-                    <Typography sx={{ color: 'text.secondary' }}>or</Typography>
-                </Divider>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 2,
-                    }}
+                        id="email"
+                        placeholder="your@email.com"
+                        name="email"
+                        autoComplete="email"
+                        variant="outlined"
+                        error={emailError}
+                        helperText={emailErrorMessage}
+                        color={passwordError ? 'error' : 'primary'}
+                    />
+                </FormControl>
+                <FormControl>
+                    <FormLabel htmlFor="password">Password</FormLabel>
+                    <TextField
+                        required
+                        fullWidth
+                        name="password"
+                        placeholder="••••••"
+                        type="password"
+                        id="password"
+                        autoComplete="new-password"
+                        variant="outlined"
+                        error={passwordError}
+                        helperText={passwordErrorMessage}
+                        color={passwordError ? 'error' : 'primary'}
+                    />
+                </FormControl>
+                <FormControlLabel
+                    control={
+                        <Checkbox value="allowExtraEmails" color="primary" />
+                    }
+                    label="I want to receive updates via email."
+                />
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    onClick={validateInputs}
                 >
-                    <Button
-                        fullWidth
-                        variant="outlined"
-                        onClick={() => alert('Sign up with Google')}
-                        startIcon={<Google />}
+                    Sign up
+                </Button>
+                <Typography sx={{ textAlign: 'center' }}>
+                    Already have an account?{' '}
+                    <Link
+                        component="button"
+                        type="button"
+                        onClick={signin}
+                        variant="body2"
+                        sx={{ alignSelf: 'baseline' }}
                     >
-                        Sign up with Google
-                    </Button>
-                    <Button
-                        fullWidth
-                        variant="outlined"
-                        onClick={() => alert('Sign up with Facebook')}
-                        startIcon={<Facebook />}
-                    >
-                        Sign up with Facebook
-                    </Button>
-                </Box>
-            </Card>
-        </SignUpContainer>
+                        Sign in
+                    </Link>
+                </Typography>
+            </Box>
+            <Divider>or</Divider>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                }}
+            >
+                <Button
+                    fullWidth
+                    variant="outlined"
+                    onClick={() => alert('Sign up with Google')}
+                    startIcon={<Google />}
+                >
+                    Sign up with Google
+                </Button>
+                <Button
+                    fullWidth
+                    variant="outlined"
+                    onClick={() => alert('Sign up with Facebook')}
+                    startIcon={<Facebook />}
+                >
+                    Sign up with Facebook
+                </Button>
+            </Box>
+        </Modal>
     )
 }
