@@ -21,13 +21,18 @@ import { Google, Facebook } from '@mui/icons-material'
 const Modal = styled(Paper)`
     width: calc(100% - 2em);
     margin: auto;
-    padding: 0 1em;
+    padding: 2em;
     position: absolute;
     z-index: 2;
+    background: #ffffff;
+    color: #1a1a1b;
+    border-radius: 8px;
+    box-shadow: 0 4px 23px 0 rgba(0, 0, 0, 0.2);
+    border: 1px solid #d3d6da;
 
     @media (min-width: 600px) {
         width: 30em;
-        padding: 1em;
+        padding: 2.5em;
     }
 `
 
@@ -37,19 +42,149 @@ const ModalHeader = styled('div')`
     position: relative;
     justify-content: center;
     align-items: center;
+    margin-bottom: 1.5em;
+`
+
+const Title = styled('h1')`
+    margin: 0;
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1a1a1b;
+    font-family: 'nyt-karnakcondensed', 'nyt-franklin', -apple-system,
+        BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+    @media (min-width: 600px) {
+        font-size: 2rem;
+    }
 `
 
 const IconButton = styled(muiIconButton)`
     && {
         margin: auto 0;
-        font-size: 1.5em;
+        font-size: 1.25em;
         position: absolute;
         right: 0;
-    }
+        color: #878a8c;
+        background: transparent;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        transition: all 0.2s ease;
 
-    &:hover {
-        background-color: transparent !important;
-        color: black;
+        &:hover {
+            background: #f0f0f0;
+            color: #1a1a1b;
+        }
+    }
+`
+
+const StyledTextField = styled(TextField)`
+    && {
+        .MuiOutlinedInput-root {
+            border-radius: 4px;
+            font-family: 'nyt-franklin', -apple-system, BlinkMacSystemFont,
+                'Segoe UI', Roboto, sans-serif;
+
+            &:hover .MuiOutlinedInput-notchedOutline {
+                border-color: #878a8c;
+            }
+
+            &.Mui-focused .MuiOutlinedInput-notchedOutline {
+                border-color: #1a1a1b;
+            }
+        }
+
+        .MuiInputLabel-root {
+            font-family: 'nyt-franklin', -apple-system, BlinkMacSystemFont,
+                'Segoe UI', Roboto, sans-serif;
+            color: #1a1a1b;
+
+            &.Mui-focused {
+                color: #1a1a1b;
+            }
+        }
+
+        .MuiFormHelperText-root {
+            font-family: 'nyt-franklin', -apple-system, BlinkMacSystemFont,
+                'Segoe UI', Roboto, sans-serif;
+        }
+    }
+`
+
+const StyledButton = styled(Button)`
+    && {
+        background: #1a1a1b;
+        color: #ffffff;
+        border-radius: 4px;
+        font-family: 'nyt-franklin', -apple-system, BlinkMacSystemFont,
+            'Segoe UI', Roboto, sans-serif;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 12px 24px;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: #2d2d2e;
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
+    }
+`
+
+const StyledOutlinedButton = styled(Button)`
+    && {
+        border: 2px solid #d3d6da;
+        color: #1a1a1b;
+        border-radius: 4px;
+        font-family: 'nyt-franklin', -apple-system, BlinkMacSystemFont,
+            'Segoe UI', Roboto, sans-serif;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 12px 24px;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: #f0f0f0;
+            border-color: #878a8c;
+        }
+    }
+`
+
+const StyledLink = styled(Link)`
+    && {
+        color: #1a1a1b;
+        font-family: 'nyt-franklin', -apple-system, BlinkMacSystemFont,
+            'Segoe UI', Roboto, sans-serif;
+        text-decoration: underline;
+
+        &:hover {
+            color: #2d2d2e;
+        }
+    }
+`
+
+const StyledDivider = styled(Divider)`
+    && {
+        margin: 1.5em 0;
+        color: #878a8c;
+        font-family: 'nyt-franklin', -apple-system, BlinkMacSystemFont,
+            'Segoe UI', Roboto, sans-serif;
+        font-size: 0.875rem;
+    }
+`
+
+const StyledFormControlLabel = styled(FormControlLabel)`
+    && {
+        .MuiFormControlLabel-label {
+            font-family: 'nyt-franklin', -apple-system, BlinkMacSystemFont,
+                'Segoe UI', Roboto, sans-serif;
+            color: #1a1a1b;
+        }
     }
 `
 
@@ -117,17 +252,7 @@ export const SignIn: React.FC<Props> = ({ close, signup }) => {
     return (
         <Modal elevation={3}>
             <ModalHeader>
-                <Typography
-                    component="h1"
-                    variant="h4"
-                    sx={{
-                        width: '100%',
-                        fontSize: 'clamp(2rem, 10vw, 2.15rem)',
-                        textAlign: 'center',
-                    }}
-                >
-                    Sign in
-                </Typography>
+                <Title>Sign In</Title>
                 <IconButton onClick={close}>
                     <Close />
                 </IconButton>
@@ -145,7 +270,7 @@ export const SignIn: React.FC<Props> = ({ close, signup }) => {
             >
                 <FormControl>
                     <FormLabel htmlFor="email">Email</FormLabel>
-                    <TextField
+                    <StyledTextField
                         error={emailError}
                         helperText={emailErrorMessage}
                         id="email"
@@ -169,17 +294,15 @@ export const SignIn: React.FC<Props> = ({ close, signup }) => {
                         }}
                     >
                         <FormLabel htmlFor="password">Password</FormLabel>
-                        <Link
-                            component="button"
-                            type="button"
+                        <StyledLink
                             onClick={handleClickOpen}
                             variant="body2"
-                            sx={{ alignSelf: 'baseline' }}
+                            sx={{ alignSelf: 'baseline', cursor: 'pointer' }}
                         >
                             Forgot your password?
-                        </Link>
+                        </StyledLink>
                     </Box>
-                    <TextField
+                    <StyledTextField
                         error={passwordError}
                         helperText={passwordErrorMessage}
                         name="password"
@@ -194,33 +317,37 @@ export const SignIn: React.FC<Props> = ({ close, signup }) => {
                         color={passwordError ? 'error' : 'primary'}
                     />
                 </FormControl>
-                <FormControlLabel
+                <StyledFormControlLabel
                     control={<Checkbox value="remember" color="primary" />}
                     label="Remember me"
                 />
                 <ForgotPassword open={open} handleClose={handleClose} />
-                <Button
+                <StyledButton
                     type="submit"
                     fullWidth
                     variant="contained"
                     onClick={validateInputs}
                 >
-                    Sign in
-                </Button>
-                <Typography sx={{ textAlign: 'center' }}>
+                    Sign In
+                </StyledButton>
+                <Typography
+                    sx={{
+                        textAlign: 'center',
+                        fontFamily:
+                            'nyt-franklin, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
+                    }}
+                >
                     Don&apos;t have an account?{' '}
-                    <Link
-                        component="button"
-                        type="button"
+                    <StyledLink
                         onClick={signup}
                         variant="body2"
-                        sx={{ alignSelf: 'baseline' }}
+                        sx={{ alignSelf: 'baseline', cursor: 'pointer' }}
                     >
                         Sign Up
-                    </Link>
+                    </StyledLink>
                 </Typography>
             </Box>
-            <Divider>or</Divider>
+            <StyledDivider>or</StyledDivider>
             <Box
                 sx={{
                     display: 'flex',
@@ -228,22 +355,22 @@ export const SignIn: React.FC<Props> = ({ close, signup }) => {
                     gap: 2,
                 }}
             >
-                <Button
+                <StyledOutlinedButton
                     fullWidth
                     variant="outlined"
                     onClick={() => alert('Sign in with Google')}
                     startIcon={<Google />}
                 >
                     Sign in with Google
-                </Button>
-                <Button
+                </StyledOutlinedButton>
+                <StyledOutlinedButton
                     fullWidth
                     variant="outlined"
                     onClick={() => alert('Sign in with Facebook')}
                     startIcon={<Facebook />}
                 >
                     Sign in with Facebook
-                </Button>
+                </StyledOutlinedButton>
             </Box>
         </Modal>
     )
