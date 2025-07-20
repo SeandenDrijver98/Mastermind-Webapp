@@ -50,6 +50,14 @@ export const Board: FC<Props> = (props) => {
     }
 
     const handleSubmit = () => {
+        // Check if any tile is empty (color 0)
+        const hasEmptyTiles = selectedColours.some((colour) => colour === 0)
+
+        if (hasEmptyTiles) {
+            // Don't submit if there are empty tiles
+            return
+        }
+        updateSelectedColours([0, 0, 0, 0])
         dec()
         checkColours(selectedColours, (correct, incorrect) => {
             if (rowRefs.current[currentRow] !== null) {

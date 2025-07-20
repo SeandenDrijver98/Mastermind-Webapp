@@ -16,6 +16,7 @@ import { styled } from '@mui/material/styles'
 import Close from '@mui/icons-material/Close'
 import { default as muiIconButton } from '@mui/material/IconButton'
 import { Google, Facebook } from '@mui/icons-material'
+import api from '../api'
 
 const Modal = styled(Paper)`
     width: calc(100% - 2em);
@@ -239,18 +240,19 @@ export const SignUp: React.FC<Props> = ({ close, signin }) => {
         return isValid
     }
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         if (nameError || emailError || passwordError) {
             event.preventDefault()
             return
         }
-        const data = new FormData(event.currentTarget)
-        console.log({
-            name: data.get('name'),
-            lastName: data.get('lastName'),
-            email: data.get('email'),
-            password: data.get('password'),
-        })
+        const formData = new FormData(event.currentTarget)
+        const name = formData.get('name') as string
+        const email = formData.get('email') as string
+        const password = formData.get('password') as string
+        const { data, error } = await api.auth.signUp(email, password)
+        if (error) {
+            console.error(error)
+        }
     }
 
     return (

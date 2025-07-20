@@ -17,6 +17,7 @@ import { default as muiIconButton } from '@mui/material/IconButton'
 import ForgotPassword from './ForgotPassword'
 
 import { Google, Facebook } from '@mui/icons-material'
+import api from '../api'
 
 const Modal = styled(Paper)`
     width: calc(100% - 2em);
@@ -208,16 +209,19 @@ export const SignIn: React.FC<Props> = ({ close, signup }) => {
         setOpen(false)
     }
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         if (emailError || passwordError) {
             event.preventDefault()
             return
         }
-        const data = new FormData(event.currentTarget)
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        })
+        const formData = new FormData(event.currentTarget)
+        const email = formData.get('email') as string
+        const password = formData.get('password') as string
+
+        const { data, error } = await api.auth.signIn(email, password)
+        if (error) {
+            console.error(error)
+        }
     }
 
     const validateInputs = () => {
