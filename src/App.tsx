@@ -8,6 +8,7 @@ import { SignUp } from './containers/Signup'
 import { Help } from './containers/Help'
 import { Settings } from './containers/Settings'
 import { CodeContext, ThemeContext } from './utils'
+import { AuthProvider, useAuth } from './contexts/AuthContext'
 
 import './App.css'
 import { Statistics } from './containers/Statistics'
@@ -26,16 +27,22 @@ const ModalContainer = styled.div`
 
 type Phases = 'help' | 'settings' | 'board' | 'statistics' | 'signin' | 'signup'
 
-const App = () => {
+const AppContent = () => {
     const [phase, setPhase] = useState<Phases>('board')
     const [numberCodeEnabled, toggleNumberCode] = useToggle(false)
     const [darkThemeEnabled, toggleDarkTheme] = useToggle(false)
     const [helpDismissed, setHelpDismissed] = useCookie('help-dismissed')
+    const { signOut } = useAuth()
 
     useMount(() => !helpDismissed && setPhase('help'))
     const handleHelpClose = () => {
         setPhase('board')
         setHelpDismissed('true')
+    }
+
+    const handleLogout = async () => {
+        await signOut()
+        setPhase('board')
     }
 
     if (phase === 'help') {
@@ -53,6 +60,7 @@ const App = () => {
                 openSettings={() => setPhase('settings')}
                 openStatistics={() => setPhase('statistics')}
                 openLogin={() => setPhase('signin')}
+                onLogout={handleLogout}
             />
             <ModalContainer>
                 {phase === 'statistics' && (
@@ -87,6 +95,14 @@ const App = () => {
                 </CodeContext.Provider>
             </ThemeContext.Provider>
         </div>
+    )
+}
+
+const App = () => {
+    return (
+        <AuthProvider>
+            <AppContent />
+        </AuthProvider>
     )
 }
 

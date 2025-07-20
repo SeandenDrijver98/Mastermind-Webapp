@@ -23,36 +23,18 @@ export interface User {
 }
 
 export interface Game {
-    id: string
-    user_id: string
-    code: number[]
+    id: number
+    auth_id: string
     attempts: number
-    won: boolean
-    created_at: string
-    completed_at?: string
+    createdAt: string
 }
 
-export interface GameAttempt {
-    id: string
-    game_id: string
-    attempt_number: number
-    guess: number[]
-    feedback: {
-        correct: number
-        incorrect: number
-    }
-    created_at: string
-}
-
-export interface UserStats {
-    user_id: string
-    total_games: number
-    games_won: number
-    average_attempts: number
-    best_score: number
+export interface Statistics {
+    id: number
+    max_streak: number
     current_streak: number
-    longest_streak: number
-    updated_at: string
+    total_games: number
+    user_id: string
 }
 
 // Authentication functions
@@ -128,19 +110,17 @@ export const auth = {
 // Game functions
 export const games = {
     // Create a new game
-    createGame: async (code: number[]) => {
+    createGame: async () => {
         const {
             data: { user },
         } = await supabase.auth.getUser()
         if (!user) throw new Error('User not authenticated')
 
         const { data, error } = await supabase
-            .from('games')
+            .from('Games')
             .insert({
-                user_id: user.id,
-                code,
+                auth_id: user.id,
                 attempts: 0,
-                won: false,
             })
             .select()
             .single()
@@ -156,78 +136,28 @@ export const games = {
         if (!user) throw new Error('User not authenticated')
 
         const { data, error } = await supabase
-            .from('games')
+            .from('Games')
             .select('*')
-            .eq('user_id', user.id)
-            .is('completed_at', null)
-            .order('created_at', { ascending: false })
+            .eq('auth_id', user.id)
+            .order('createdAt', { ascending: false })
             .limit(1)
             .single()
 
         return { data, error }
     },
 
-    // Add an attempt to a game
-    addAttempt: async (
-        gameId: string,
-        guess: number[],
-        feedback: { correct: number; incorrect: number }
-    ) => {
-        const {
-            data: { user },
-        } = await supabase.auth.getUser()
-        if (!user) throw new Error('User not authenticated')
-
-        // Get current game to determine attempt number
-        const { data: game } = await supabase
-            .from('games')
-            .select('attempts')
-            .eq('id', gameId)
-            .single()
-
-        if (!game) throw new Error('Game not found')
-
-        const attemptNumber = game.attempts + 1
-
-        // Insert the attempt
-        const { data: attempt, error: attemptError } = await supabase
-            .from('game_attempts')
-            .insert({
-                game_id: gameId,
-                attempt_number: attemptNumber,
-                guess,
-                feedback,
-            })
-            .select()
-            .single()
-
-        if (attemptError) return { data: null, error: attemptError }
-
-        // Update game attempts count
-        const { data: updatedGame, error: gameError } = await supabase
-            .from('games')
-            .update({ attempts: attemptNumber })
-            .eq('id', gameId)
-            .select()
-            .single()
-
-        return { data: { attempt, game: updatedGame }, error: gameError }
-    },
-
-    // Complete a game (win or lose)
-    completeGame: async (gameId: string, won: boolean) => {
+    // Update game attempts
+    updateGameAttempts: async (gameId: number, attempts: number) => {
         const {
             data: { user },
         } = await supabase.auth.getUser()
         if (!user) throw new Error('User not authenticated')
 
         const { data, error } = await supabase
-            .from('games')
-            .update({
-                won,
-                completed_at: new Date().toISOString(),
-            })
+            .from('Games')
+            .update({ attempts })
             .eq('id', gameId)
+            .eq('auth_id', user.id)
             .select()
             .single()
 
@@ -242,28 +172,11 @@ export const games = {
         if (!user) throw new Error('User not authenticated')
 
         const { data, error } = await supabase
-            .from('games')
+            .from('Games')
             .select('*')
-            .eq('user_id', user.id)
-            .not('completed_at', 'is', null)
-            .order('created_at', { ascending: false })
+            .eq('auth_id', user.id)
+            .order('createdAt', { ascending: false })
             .limit(limit)
-
-        return { data, error }
-    },
-
-    // Get attempts for a specific game
-    getGameAttempts: async (gameId: string) => {
-        const {
-            data: { user },
-        } = await supabase.auth.getUser()
-        if (!user) throw new Error('User not authenticated')
-
-        const { data, error } = await supabase
-            .from('game_attempts')
-            .select('*')
-            .eq('game_id', gameId)
-            .order('attempt_number', { ascending: true })
 
         return { data, error }
     },
@@ -280,7 +193,7 @@ export const statistics = {
 
         // Try to get existing stats
         const { data, error } = await supabase
-            .from('user_stats')
+            .from('Statistics')
             .select('*')
             .eq('user_id', user.id)
             .single()
@@ -288,15 +201,12 @@ export const statistics = {
         // If no stats exist, create default stats
         if (error && error.code === 'PGRST116') {
             const { data: newStats, error: createError } = await supabase
-                .from('user_stats')
+                .from('Statistics')
                 .insert({
                     user_id: user.id,
                     total_games: 0,
-                    games_won: 0,
-                    average_attempts: 0,
-                    best_score: 0,
+                    max_streak: 0,
                     current_streak: 0,
-                    longest_streak: 0,
                 })
                 .select()
                 .single()
@@ -316,7 +226,7 @@ export const statistics = {
 
         // Get current stats
         const { data: currentStats } = await supabase
-            .from('user_stats')
+            .from('Statistics')
             .select('*')
             .eq('user_id', user.id)
             .single()
@@ -325,34 +235,15 @@ export const statistics = {
 
         // Calculate new stats
         const newTotalGames = currentStats.total_games + 1
-        const newGamesWon = gameWon
-            ? currentStats.games_won + 1
-            : currentStats.games_won
-        const newAverageAttempts =
-            (currentStats.average_attempts * currentStats.total_games +
-                attempts) /
-            newTotalGames
-        const newBestScore = gameWon
-            ? Math.min(currentStats.best_score || Infinity, attempts)
-            : currentStats.best_score
-
-        // Calculate streaks
         const newCurrentStreak = gameWon ? currentStats.current_streak + 1 : 0
-        const newLongestStreak = Math.max(
-            currentStats.longest_streak,
-            newCurrentStreak
-        )
+        const newMaxStreak = Math.max(currentStats.max_streak, newCurrentStreak)
 
         const { data, error } = await supabase
-            .from('user_stats')
+            .from('Statistics')
             .update({
                 total_games: newTotalGames,
-                games_won: newGamesWon,
-                average_attempts: newAverageAttempts,
-                best_score: newBestScore,
                 current_streak: newCurrentStreak,
-                longest_streak: newLongestStreak,
-                updated_at: new Date().toISOString(),
+                max_streak: newMaxStreak,
             })
             .eq('user_id', user.id)
             .select()
@@ -364,7 +255,7 @@ export const statistics = {
     // Get leaderboard
     getLeaderboard: async (limit = 10) => {
         const { data, error } = await supabase
-            .from('user_stats')
+            .from('Statistics')
             .select(
                 `
         *,
@@ -373,8 +264,8 @@ export const statistics = {
         )
       `
             )
-            .order('games_won', { ascending: false })
-            .order('average_attempts', { ascending: true })
+            .order('max_streak', { ascending: false })
+            .order('total_games', { ascending: false })
             .limit(limit)
 
         return { data, error }
@@ -384,7 +275,7 @@ export const statistics = {
 // Real-time subscriptions
 export const subscriptions = {
     // Subscribe to game updates
-    subscribeToGame: (gameId: string, callback: (payload: any) => void) => {
+    subscribeToGame: (gameId: number, callback: (payload: any) => void) => {
         return supabase
             .channel(`game:${gameId}`)
             .on(
@@ -392,7 +283,7 @@ export const subscriptions = {
                 {
                     event: '*',
                     schema: 'public',
-                    table: 'games',
+                    table: 'Games',
                     filter: `id=eq.${gameId}`,
                 },
                 callback
@@ -400,19 +291,19 @@ export const subscriptions = {
             .subscribe()
     },
 
-    // Subscribe to user stats updates
+    // Subscribe to user statistics updates
     subscribeToUserStats: (
         userId: string,
         callback: (payload: any) => void
     ) => {
         return supabase
-            .channel(`user_stats:${userId}`)
+            .channel(`statistics:${userId}`)
             .on(
                 'postgres_changes',
                 {
                     event: '*',
                     schema: 'public',
-                    table: 'user_stats',
+                    table: 'Statistics',
                     filter: `user_id=eq.${userId}`,
                 },
                 callback

@@ -16,7 +16,7 @@ import { styled } from '@mui/material/styles'
 import Close from '@mui/icons-material/Close'
 import { default as muiIconButton } from '@mui/material/IconButton'
 import { Google, Facebook } from '@mui/icons-material'
-import api from '../api'
+import { useAuth } from '../contexts/AuthContext'
 
 const Modal = styled(Paper)`
     width: calc(100% - 2em);
@@ -194,6 +194,7 @@ type Props = {
 }
 
 export const SignUp: React.FC<Props> = ({ close, signin }) => {
+    const { signUp } = useAuth()
     const [emailError, setEmailError] = React.useState(false)
     const [emailErrorMessage, setEmailErrorMessage] = React.useState('')
     const [passwordError, setPasswordError] = React.useState(false)
@@ -241,17 +242,20 @@ export const SignUp: React.FC<Props> = ({ close, signin }) => {
     }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+
         if (nameError || emailError || passwordError) {
-            event.preventDefault()
             return
         }
         const formData = new FormData(event.currentTarget)
         const name = formData.get('name') as string
         const email = formData.get('email') as string
         const password = formData.get('password') as string
-        const { data, error } = await api.auth.signUp(email, password)
+        const { data, error } = await signUp(email, password)
         if (error) {
             console.error(error)
+        } else {
+            close()
         }
     }
 
